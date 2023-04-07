@@ -158,3 +158,5 @@ fenetre.mainloop()
 # Proposer une aide, par exemple afficher toutes les cases contenant un chiffre donné.
 # Afficher et sauvegarder le temps nécessaire pour remplir la grille ainsi que le nombre d’erreurs commises.
 # Afficher les cases sur lesquelles portent les contraintes (si l’usager le souhaite).
+
+# Pour tester commits
