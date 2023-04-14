@@ -145,6 +145,44 @@ my_entry.focus_set()
     
 fenetre.mainloop()
 
+from tkinter import *
+from tkinter import ttk
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+ 
+def Selected_elem(event):
+    a=Saisie[i][j].get()
+    print(a)
+    return(a)
+ 
+ 
+root = Tk()
+root.title("1,2,3,4,5,6,7,8,9")
+root.geometry("1080x720")
+ 
+frm1 = Frame(root,bg="white",width=1000,height=1000)
+frm1.pack()
+frm1.rowconfigure(0,weight=1)
+frm1.columnconfigure(0,weight=1)
+ 
+ 
+Colonne = 10
+Ligne = 5
+Saisie = np.full((11,6),"         ",dtype=object)
+a=" "
+for i in range (Colonne+1):
+    Label(frm1,text="  J%s  "%i,borderwidth=1,relief="solid",font=("Arial, 12"),bg="white").grid(column=i,row=0)
+for i in range (Ligne+1):
+    Label(frm1,text="  Eleve%s  "%i,borderwidth=1,relief="solid",font=("Arial, 12"),bg="white").grid(column=0,row=i)
+for i in range (1,Colonne+1):
+    for j in range (1, Ligne+1):
+        Saisie[i][j]=ttk.Combobox(frm1,values=["1,,2,3,4,5,6,7,8,9"],width=5)
+        Saisie[i][j].grid(column=i,row=j)
+        Saisie[i][j].bind("<<ComboboxSelected>>", Selected_elem)
+         
+root.mainloop()
 #Il reste à faire un code pour modifier les valeurs tu tableau, code pour démarer la partie et pour la sauvegarde la partie
 #un code pour dire s'il y a des erreurs et un bouton pour relancer la partie 
 #faire séparation de la grille
