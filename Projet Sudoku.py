@@ -78,13 +78,24 @@ def check_sudoku(grid):# qui prend un tableau et qui vérifie s'il est correctem
 def afficher_tableau_tkinter(tableau,taille):#qui affiche un canvas avec une grille
     """Affiche une fenêtre ainsi qu'un canvas dont les cases dessinées correspondent à un tableau et sont de taille taille"""
     global canvas
+    global tableau_texte
     for i in range(len(tableau)):
         for j in range(len(tableau[i])):
-            canvas.create_rectangle(i*taille,j*taille,i*taille+taille,j*taille+taille,outline = "black")
+            rectangle = canvas.create_rectangle(i*taille,j*taille,i*taille+taille,j*taille+taille,outline = "black")
             texte = str(tableau[i][j])
             if texte=="0":
                 texte = " "
-            canvas.create_text(i*taille + taille//2, j*taille + taille//2, text=texte, fill="black", font=('Helvetica 15 bold'))
+            texte_item=canvas.create_text(i*taille + taille//2, j*taille + taille//2, text=texte, fill="black", font=('Helvetica 15 bold'))
+            tableau_texte[i][j]=texte_item
+
+def update_texte():
+    global POSITION_SOURIS
+    item = canvas.find_closest(*POSITION_SOURIS)[0]
+    texte=my_entry.get()
+    print(texte)
+    print(item)
+    canvas.itemconfigure(item,text=texte)
+
 
 
 
@@ -92,12 +103,15 @@ def get_mouse_pos(event): #qui recupere la position de la souris quand tu clique
     """Affiche les coordonnées où l'utilisateur a cliqué"""
     global size
     global POSITION_SOURIS
-    POSITION_SOURIS = (event.x//size, event.y//size)
+    #POSITION_SOURIS = (event.x//size, event.y//size)
+    POSITION_SOURIS=(event.x,event.y)
+    
+    
 
 size = 50
 nb_cases_vides = 60
 POSITION_SOURIS = (0,0)
-
+tableau_texte=[[0]*9 for _ in range(9)]#creer un tableau 9*9 contenant des 0
 sudoku = creer_tableau_plein(9, 9)
 while not check_sudoku(sudoku):
     sudoku = creer_tableau_plein(9, 9)
@@ -116,6 +130,9 @@ def case_est_vide():
 
 def fermer_fenetre():
     fenetre.destroy()
+
+bouton_texte=tk.Button(command=update_texte,text="écrire une valeur")
+bouton_texte.grid(row=4,column=2)    
 
 bouton=tk.Button(command=fermer_fenetre,bg="orange red",text="tu peux quitter la partie",font=(12))
 bouton.grid(row=1,column=1)
