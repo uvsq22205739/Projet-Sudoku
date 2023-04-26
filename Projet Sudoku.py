@@ -1,6 +1,6 @@
 from random import randint, choice
 import tkinter as tk
-
+valeurspossibles=range(1,10)
 def creer_tableau_plein(lignes,colonnes):
     """Crée un tableau de valeurs comprises entre 1 et 9
     Pour chaque ligne dans un tableau déjà rempli, on prend une série de 3 lignes aléatoirement et on l'ajoute à un tableau, afin d'ajouter un peu de hasard dans sa structure"""
@@ -28,7 +28,7 @@ def creer_tableau_plein(lignes,colonnes):
 def vider_tableau(tableau,n): #qui prend un tableau et vide aléatoirement n cases dans le tableau 
     """Place aléatoirement n 0 dans un tableau"""
     for i in range(n):
-        modifier_valeur_tableau(tableau,[randint(0,LIGNES-1),randint(0,COLONNES-1)],0)
+        tableau[randint(0,len(tableau)-1)][randint(0,len(tableau[0])-1)] = 0
 
 def afficher_tableau(tableau):#affiche le tableau dans la console 
     """Affiche un tableau dans la console"""
@@ -37,19 +37,6 @@ def afficher_tableau(tableau):#affiche le tableau dans la console
 
 def modifier_valeur_tableau(tableau,pos,v):#qui prend un tableau, un tuple (x,y) et une valeur qui remplace la valeur à la position tableau [x][y] par v (placer les chiffres du joueur ou à les enlever )    """Modifie la valeur présente aux coordonnées pos dans un tableau (tableau[x][y]) par la valeur v"""
     tableau[pos[0]][pos[1]] = v
-
-
-def creer_sudoku_parfait():
-    """Crée un Sudoku correspondant à une vraie partie."""
-    global GRILLE_SUDOKU, GRILLE_FINIE
-    while not check_sudoku(GRILLE_SUDOKU): ## S'ils ne sont pas conformes, on en recrée jusqu'à ce qu'ils soient bons
-        GRILLE_SUDOKU, GRILLE_FINIE = creer_tableau_plein(LIGNES, COLONNES)
-    vider_tableau(GRILLE_SUDOKU,CASES_VIDES) ## On vide le tableau du Sudoku
-
-
-def verifier(tableau,full_tab,pos):
-    """Vérifie si la valeur présente dans un tableau aux coordonnées pos est bonne (la même que dans le tableau déjà complet)."""
-    return tableau[pos[0]][pos[1]] == full_tab[pos[0]][pos[1]]
 
 def recuperer_carre(tableau):
     """Crée une liste contenant tous les sous-tableaux de taille 3x3 dans un tableau"""
@@ -96,7 +83,7 @@ def afficher_tableau_tkinter(tableau,taille):#qui affiche un canvas avec une gri
         for j in range(len(tableau[i])):
             rectangle = canvas.create_rectangle(i*taille,j*taille,i*taille+taille,j*taille+taille,outline = "black", width=3)
             texte = str(tableau[i][j])
-            if texte=="0":
+            if texte=="0" or int(texte) not in valeurspossibles:
                 texte = " "
             texte_item=canvas.create_text(i*taille + taille//2, j*taille + taille//2, text=texte, fill="black", font=('Helvetica 15 bold'))
             tableau_texte[i][j]=texte_item
@@ -105,6 +92,12 @@ def update_texte():
     global POSITION_SOURIS
     item = canvas.find_closest(*POSITION_SOURIS)[0]
     texte=my_entry.get()
+    if int(texte) not in valeurspossibles:
+        Label["text"] = "ne respecte pas les contraite du jeux"
+        return 
+    sudoku[POSITION_SOURIS[0]//size][POSITION_SOURIS[1]//size] = int(texte)
+    if check_sudoku(sudoku):
+        Label["text"]="Vous avez gagné !"
     print(texte)
     print(item)
     canvas.itemconfigure(item,text=texte)
@@ -119,50 +112,6 @@ def get_mouse_pos(event): #qui recupere la position de la souris quand tu clique
     #POSITION_SOURIS = (event.x//size, event.y//size)
     POSITION_SOURIS=(event.x,event.y)
     
-    def redemarrer():
-    """Redémarre une partie."""
-    global GAGNE
-    global GRILLE_SUDOKU, GRILLE_FINIE
-
-    GRILLE_SUDOKU, GRILLE_FINIE = creer_tableau_plein(LIGNES, COLONNES) ## recrée un Sudoku pour une autre partie
-    creer_sudoku_parfait()
-    GAGNE = False
-    afficher_tableau_tkinter(GRILLE_SUDOKU,SIZE)
-
-
-def fermer_fenetre():
-    """Ferme la fenêtre (arrête le jeu)."""
-    fenetre.destroy()
-
-
-def clic(event):
-    """Récupère la case où le joueur a cliqué et place un chiffre à cet endroit.
-    Si le joueur a placé un mauvais chiffre ou qu'il a cliqué sur une case déjà bien remplie, cela ne modifiera pas le Sudoku.
-    Si le joueur a gagné, en recliquant sur le canevas, vous pourrez recommencer une partie."""
-    global GAGNE
-    global GRILLE_SUDOKU, GRILLE_FINIE
-
-    if not GAGNE:
-        global SIZE
-        global POSITION_SOURIS
-        global scale
-        POSITION_SOURIS = (event.x//SIZE, event.y//SIZE)
-    
-        previous_val = GRILLE_SUDOKU[POSITION_SOURIS[0]][POSITION_SOURIS[1]] ## Récupère la valeur dans la case
-
-        if not verifier(GRILLE_SUDOKU, GRILLE_FINIE, POSITION_SOURIS): ## Si la valeur n'est pas bonne, on la change pour celle dans scale
-            modifier_valeur_tableau(GRILLE_SUDOKU, POSITION_SOURIS, int(scale.get()))
-
-        if not verifier(GRILLE_SUDOKU, GRILLE_FINIE, POSITION_SOURIS): ## Si la valeur n'est toujours pas bonne, on annule le changement.
-            modifier_valeur_tableau(GRILLE_SUDOKU, POSITION_SOURIS, 0)
-        
-        afficher_tableau_tkinter(GRILLE_SUDOKU,SIZE)
-    
-        if GRILLE_SUDOKU == GRILLE_FINIE: ## Si le joueur a gagné, bravo
-            GAGNE = True
-            canvas.delete("all")
-            canvas.create_text((LIGNES*SIZE)//2, (COLONNES*SIZE)//2, text="Vous avez gagné !\nClickez pour recommencer une partie.", fill="black", font=('Helvetica 15 bold'))
-
     
 
 size = 50
@@ -202,6 +151,8 @@ bouton2.grid(row=2,column=1)
 def sauvegarder():
     print("3")
     
+Label=tk.Label(fenetre, text="")
+Label.grid(row=0, column=1)
 
 bouton3=tk.Button(command=sauvegarder, bg="hot pink",text="sauvegarder la partie",font=(12))
 bouton3.grid(row=3,column=1)
@@ -232,4 +183,4 @@ fenetre.mainloop()
 # Afficher et sauvegarder le temps nécessaire pour remplir la grille ainsi que le nombre d’erreurs commises.
 # Afficher les cases sur lesquelles portent les contraintes (si l’usager le souhaite).
 
-# Pour tester commits
+# Pour tester commits
