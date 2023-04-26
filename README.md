@@ -1,5 +1,24 @@
-# Projet-Sudoku
+## Installation
 
+Install my-project with npm
+
+```bash
+  npm install my-project
+  cd my-project
+```
+https://github.com/uvsq22205739/Projet-Sudoku 
+# Project Sudoku
+
+TD°2 Biologie-Informatique
+Kelly MBEMBA
+Amel AROUA
+
+https://github.com/uvsq22205739/Projet-Sudoku
+
+Ceci est le projet d'un jeu Sudoku qui est un jeu populaire de placement de nombres basé sur la logique combinatoire. L’objectif est de remplir une grille 9 × 9 avec des chiffres de sorte que chaque colonne, chaque ligne et chacune des neuf
+sous-grilles 3 × 3 qui composent la grille (également appelées "boîtes", "blocs" ou "régions") contiennent
+tous les chiffres de 1 à 9.
+# Projet-Sudoku
 
 from random import randint, choice
 
