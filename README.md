@@ -22,8 +22,10 @@ tous les chiffres de 1 à 9.
 
 EXPLICATION DU PROGRAMME:
 
+Au total nous avons creer 14 fonctions qui nous ont permis de générer le jeu
+
 from random import randint, choice
-import tkinter as tk: C'est deux fonctions permettent d'ouvrir une interphase graphique 
+import tkinter as tk : nous permet d'importer la librairie lier a tkinter pour notre interface graphique 
 
 valeurspossibles correspond au au valeurs qu'il doit y avoir dans le tableau
 
@@ -91,13 +93,10 @@ def sauvegarder(): fonctions qui permet de sauvegarder la partie mais nous avons
 Label=tk.Label(fenetre, text="")
 Label.grid(row=0, column=1)
 
-bouton3= troisième bouton qui permet de quvegarder la partie 
+bouton3= troisième bouton qui permet de sauvegarder la partie 
 
 my_entry = tk.Entry(fenetre) /(fonction prise sur internet)
 cette fonction permet de changer l’icone par défaut de la fenêtre Tkinter Python. Lie la touche Entrée à une fonction dans Tkinter Python. Efface le contenu d’un widget Text Tkinter Python. Augmenter la hauteur et largeur d’un widget Entry Tkinter. Récupérer la valeur d’un Entry saisi par l’utilisateur. Permet donc a l'utilisateur de remplir la cases q'il veut avec le chiffres qu'il veut de 1 à 9. 
     
 fenetre.mainloop()
-
-
-
 
