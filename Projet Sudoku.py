@@ -150,16 +150,16 @@ def fermer_fenetre():
 bouton_texte=tk.Button(command=update_texte,text="écrire une valeur")
 bouton_texte.grid(row=4,column=2)    
 
-bouton=tk.Button(command=fermer_fenetre,bg="orange red",text="tu peux quitter la partie",font=(12))
+bouton=tk.Button(command=fermer_fenetre,bg="orange red",text="tu peux quitter la partie",font=(12))#bouton pour quiter la partie 
 bouton.grid(row=1,column=1)
 
 def redemarer():
     bouton2.config(text="commence ta nouvelle partie :)")
 
-bouton2=tk.Button(command=redemarer, bg='Slateblue3',text="tu peut refaire une partie",font=(12))
+bouton2=tk.Button(command=redemarer, bg='Slateblue3',text="tu peut refaire une partie",font=(12))# bouton pour refaire une partie 
 bouton2.grid(row=2,column=1)
 
-def sauvegarder():
+def sauvegarder():#fonction qui permet de sauveagredr avec la fonction filedialogue qui permet de sauvegarder des fichiers
     filename = filedialog.asksaveasfilename(defaultextension=".eps")
     canvas.postscript(file=filename, colormode='color')
 
@@ -170,11 +170,12 @@ def aide():
 Label=tk.Label(fenetre, text="")
 Label.grid(row=0, column=1)
 
-bouton3=tk.Button(command=sauvegarder, bg="hot pink",text="sauvegarder la partie",font=(12))
+bouton3=tk.Button(command=sauvegarder, bg="hot pink",text="sauvegarder la partie",font=(12))# bouton sauvegarder la partie
 bouton3.grid(row=3,column=1)
 
-bouton4=tk.Button(command=aide,bg="pink",text="help",font=9)
+bouton4=tk.Button(command=aide,bg="pink",text="help",font=9)# bouton help
 bouton4.grid(row=4,column=1)
+
 my_entry = tk.Entry(fenetre) # fonctions prise sur internet 
 my_entry.grid()
 # entry = tk.Entry(fenetre,
