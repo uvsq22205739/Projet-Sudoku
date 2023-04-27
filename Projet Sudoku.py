@@ -158,7 +158,7 @@ Label.grid(row=0, column=1)
 bouton3=tk.Button(command=sauvegarder, bg="hot pink",text="sauvegarder la partie",font=(12))
 bouton3.grid(row=3,column=1)
 
-my_entry = tk.Entry(fenetre)
+my_entry = tk.Entry(fenetre) # fonctions prise sur internet 
 my_entry.grid()
 # entry = tk.Entry(fenetre,
 #                  font='Arial 60 bold',
