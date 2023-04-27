@@ -60,11 +60,12 @@ def sommes_carres(carre):
     sommes = [sum(carre[i]) for i in range(len(carre))]
     somme = sum(sommes)
 
-def sudoku_ok(line):
+def sudoku_ok(line): # fonction prise sur inetrenet 
     """Vérifie si une ligne d'un tableau est correcte"""
     return (len(line) == 9 and sum(line) == sum(set(line)))
 
-def check_sudoku(grid):# qui prend un tableau et qui vérifie s'il est correctement rempli (en utilisant les fonctions recupere_carre,somme_carre et sudoku_ok)
+def check_sudoku(grid):
+    # qui prend un tableau et qui vérifie s'il est correctement rempli (en utilisant les fonctions recupere_carre,somme_carre et sudoku_ok)
     """Vérifie si un tableau répond bien aux règles de complétion d'un sudoku"""
     bad_rows = [row for row in grid if not sudoku_ok(row)]
     grid = list(zip(*grid))
