@@ -171,17 +171,11 @@ my_entry.focus_set()
     
 fenetre.mainloop()
 
-#Il reste à faire un code pour modifier les valeurs tu tableau, code pour démarer la partie et pour la sauvegarde la partie
-#un code pour dire s'il y a des erreurs et un bouton pour relancer la partie 
-#faire séparation de la grille
-#• Notifier l’utilisateur si le chiffre inséré ne respecte pas les contraintes du jeu.
+#CE QUI NOUS RESTE A FAIRE:
+
+#Il reste à faire un code pour modifier les valeurs tu tableau et pour la sauvegarde la partie
 # Proposer une panoplie de puzzles générés auparavant.
-# Mettre en évidence les erreurs en utilisant un code couleur (du rouge par exemple) pour montrer lacontrainte qui n’est pas respectée.
-# Pouvoir annuler une partie de sudoku.
-#Effacer des chiffres déjà entrés au niveau des cases.
 #Sauvegarder l’état de jeu d’une grille et refaire une grille déjà résolue si l’usager le souhaite.
 # Proposer une aide, par exemple afficher toutes les cases contenant un chiffre donné.
 # Afficher et sauvegarder le temps nécessaire pour remplir la grille ainsi que le nombre d’erreurs commises.
 # Afficher les cases sur lesquelles portent les contraintes (si l’usager le souhaite).
-
-# Pour tester commits
