@@ -1,6 +1,6 @@
 from random import randint, choice
 import tkinter as tk
-
+valeurspossibles=range(1,10)
 def creer_tableau_plein(lignes,colonnes):
     """Crée un tableau de valeurs comprises entre 1 et 9
     Pour chaque ligne dans un tableau déjà rempli, on prend une série de 3 lignes aléatoirement et on l'ajoute à un tableau, afin d'ajouter un peu de hasard dans sa structure"""
@@ -60,11 +60,12 @@ def sommes_carres(carre):
     sommes = [sum(carre[i]) for i in range(len(carre))]
     somme = sum(sommes)
 
-def sudoku_ok(line):
+def sudoku_ok(line): # fonction prise sur inetrenet 
     """Vérifie si une ligne d'un tableau est correcte"""
     return (len(line) == 9 and sum(line) == sum(set(line)))
 
-def check_sudoku(grid):# qui prend un tableau et qui vérifie s'il est correctement rempli (en utilisant les fonctions recupere_carre,somme_carre et sudoku_ok)
+def check_sudoku(grid):# fonctions prise sur inetrent 
+    # qui prend un tableau et qui vérifie s'il est correctement rempli (en utilisant les fonctions recupere_carre,somme_carre et sudoku_ok)
     """Vérifie si un tableau répond bien aux règles de complétion d'un sudoku"""
     bad_rows = [row for row in grid if not sudoku_ok(row)]
     grid = list(zip(*grid))
@@ -81,9 +82,9 @@ def afficher_tableau_tkinter(tableau,taille):#qui affiche un canvas avec une gri
     global tableau_texte
     for i in range(len(tableau)):
         for j in range(len(tableau[i])):
-            rectangle = canvas.create_rectangle(i*taille,j*taille,i*taille+taille,j*taille+taille,outline = "black")
+            rectangle = canvas.create_rectangle(i*taille,j*taille,i*taille+taille,j*taille+taille,outline = "black", width=3)
             texte = str(tableau[i][j])
-            if texte=="0":
+            if texte=="0" or int(texte) not in valeurspossibles:
                 texte = " "
             texte_item=canvas.create_text(i*taille + taille//2, j*taille + taille//2, text=texte, fill="black", font=('Helvetica 15 bold'))
             tableau_texte[i][j]=texte_item
@@ -92,6 +93,12 @@ def update_texte():
     global POSITION_SOURIS
     item = canvas.find_closest(*POSITION_SOURIS)[0]
     texte=my_entry.get()
+    if int(texte) not in valeurspossibles:
+        Label["text"] = "ne respecte pas les contraite du jeux"
+        return 
+    sudoku[POSITION_SOURIS[0]//size][POSITION_SOURIS[1]//size] = int(texte)
+    if check_sudoku(sudoku):
+        Label["text"]="Vous avez gagné !"
     print(texte)
     print(item)
     canvas.itemconfigure(item,text=texte)
@@ -145,11 +152,13 @@ bouton2.grid(row=2,column=1)
 def sauvegarder():
     print("3")
     
+Label=tk.Label(fenetre, text="")
+Label.grid(row=0, column=1)
 
 bouton3=tk.Button(command=sauvegarder, bg="hot pink",text="sauvegarder la partie",font=(12))
 bouton3.grid(row=3,column=1)
 
-my_entry = tk.Entry(fenetre)
+my_entry = tk.Entry(fenetre) # fonctions prise sur internet 
 my_entry.grid()
 # entry = tk.Entry(fenetre,
 #                  font='Arial 60 bold',
@@ -162,56 +171,11 @@ my_entry.focus_set()
     
 fenetre.mainloop()
 
-from tkinter import *
-from tkinter import ttk
-import math
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
- 
-def Selected_elem(event):
-    a=Saisie[i][j].get()
-    print(a)
-    return(a)
- 
- 
-root = Tk()
-root.title("1,2,3,4,5,6,7,8,9")
-root.geometry("1080x720")
- 
-frm1 = Frame(root,bg="white",width=1000,height=1000)
-frm1.pack()
-frm1.rowconfigure(0,weight=1)
-frm1.columnconfigure(0,weight=1)
- 
- 
-Colonne = 10
-Ligne = 5
-Saisie = np.full((11,6),"         ",dtype=object)
-a=" "
-for i in range (Colonne+1):
-    Label(frm1,text="  J%s  "%i,borderwidth=1,relief="solid",font=("Arial, 12"),bg="white").grid(column=i,row=0)
-for i in range (Ligne+1):
-    Label(frm1,text="  Eleve%s  "%i,borderwidth=1,relief="solid",font=("Arial, 12"),bg="white").grid(column=0,row=i)
-for i in range (1,Colonne+1):
-    for j in range (1, Ligne+1):
-        Saisie[i][j]=ttk.Combobox(frm1,values=["1,,2,3,4,5,6,7,8,9"],width=5)
-        Saisie[i][j].grid(column=i,row=j)
-        Saisie[i][j].bind("<<ComboboxSelected>>", Selected_elem)
-         
-root.mainloop()
-#Il reste à faire un code pour modifier les valeurs tu tableau, code pour démarer la partie et pour la sauvegarde la partie
-#un code pour dire s'il y a des erreurs et un bouton pour relancer la partie 
-#faire séparation de la grille
-#• Permettre à l’usager de sélectionner une case et d’entrer un chiffre de 1 à 9 dans cette case.
-#• Notifier l’utilisateur si le chiffre inséré ne respecte pas les contraintes du jeu.
+#CE QUI NOUS RESTE A FAIRE:
+
+#Il reste à faire un code pour modifier les valeurs tu tableau et pour la sauvegarde la partie
 # Proposer une panoplie de puzzles générés auparavant.
-# Mettre en évidence les erreurs en utilisant un code couleur (du rouge par exemple) pour montrer lacontrainte qui n’est pas respectée.
-# Pouvoir annuler une partie de sudoku.
-#Effacer des chiffres déjà entrés au niveau des cases.
 #Sauvegarder l’état de jeu d’une grille et refaire une grille déjà résolue si l’usager le souhaite.
 # Proposer une aide, par exemple afficher toutes les cases contenant un chiffre donné.
 # Afficher et sauvegarder le temps nécessaire pour remplir la grille ainsi que le nombre d’erreurs commises.
 # Afficher les cases sur lesquelles portent les contraintes (si l’usager le souhaite).
-
-# Pour tester commits
