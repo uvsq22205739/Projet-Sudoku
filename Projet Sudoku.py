@@ -1,6 +1,11 @@
 from random import randint, choice
 import tkinter as tk
+from tkinter import filedialog
+from tkinter import simpledialog
 valeurspossibles=range(1,10)
+
+
+
 def creer_tableau_plein(lignes,colonnes):
     """Crée un tableau de valeurs comprises entre 1 et 9
     Pour chaque ligne dans un tableau déjà rempli, on prend une série de 3 lignes aléatoirement et on l'ajoute à un tableau, afin d'ajouter un peu de hasard dans sa structure"""
@@ -153,7 +158,8 @@ bouton2=tk.Button(command=redemarer, bg='Slateblue3',text="tu peut refaire une p
 bouton2.grid(row=2,column=1)
 
 def sauvegarder():
-    print("3")
+    filename = filedialog.asksaveasfilename(defaultextension=".eps")
+    canvas.postscript(file=filename, colormode='color')
     
 Label=tk.Label(fenetre, text="")
 Label.grid(row=0, column=1)
@@ -176,7 +182,7 @@ fenetre.mainloop()
 
 #CE QUI NOUS RESTE A FAIRE:
 
-#Il reste à faire un code pour modifier les valeurs tu tableau et pour la sauvegarde la partie
+#Il reste à faire un code pour modifier les valeurs tu tableau 
 # Proposer une panoplie de puzzles générés auparavant.
 #Sauvegarder l’état de jeu d’une grille et refaire une grille déjà résolue si l’usager le souhaite.
 # Proposer une aide, par exemple afficher toutes les cases contenant un chiffre donné.
