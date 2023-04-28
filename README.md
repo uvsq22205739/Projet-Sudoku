@@ -91,11 +91,3 @@ Label.grid(row=0, column=1)
 my_entry = tk.Entry(fenetre) : variable qui permet lapparition d'un "rectangle" dans la fenetre ainsi l'utilisateur peut remplir la cases qu'il veut un chiffre allant de 1 à 9. Lie la touche Entrée à une fonction dans Tkinter Python.
     
 fenetre.mainloop() -> permet l'ouverture de la fenetre
-
-
-###Souces internet pour les fonctions:
-
-def aide():
-    webbrowser.open("https://www.assistant-sudoku.com/")
-    #bouton4.config(text="copie colle ce lien : https://www.assistant-sudoku.com/")
-
