@@ -101,7 +101,7 @@ def update_texte():#permet dactualiser le tableau avec les chiffres rentrer par 
     item = canvas.find_closest(*POSITION_SOURIS)[0]#permet de rouver la case vide la plus proche du click de la souris
     texte=my_entry.get()#l'espace qui nous permet decrire le chiffre qui apparaitra sur la case
     if int(texte) not in valeurspossibles:
-        Label["text"] = "CHOISIS UN CHIFFRE ENTRE 1 ET 9 :("
+        Label["text"] = "CHOISIS UN CHIFFRE ENTRE 1 ET 9 :(, tu ne respecte pas les contraintes du jeux"
         return 
     else:
         Label["text"]="TON CHIFFRE EST VALABLE :D"
